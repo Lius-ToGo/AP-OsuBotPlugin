@@ -1,2 +1,3 @@
 # AP-OsuBotPlugin
 APBot`s Osu plugin...
+for Nonebot2 using.
