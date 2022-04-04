@@ -9,7 +9,7 @@ class MySQLConnect:
     def __MySQLConn():
         MySQLConnect.__excount += 1
         try:
-            conn = pymysql.connect(host="127.0.0.1", user="root", passwd="123", port=3306, db="sql", charset="utf8")
+            conn = pymysql.connect(host="127.0.0.1", user="osusql", passwd="S3FS4TLkkHXpny3M", port=3306, db="osusql", charset="utf8")
             if MySQLConnect.__excount < 2\
                     :
                 print("数据库连接成功")
@@ -29,13 +29,15 @@ class MySQLConnect:
         try:
             cur.execute(sql)
             conn.commit()
-            e=0
+            e='0'
             conn.close()
             return e
         except Exception as e:
             conn.rollback()
             conn.close()
             return e
+
+
 
     # 查询命令执行executeselect
     @staticmethod
