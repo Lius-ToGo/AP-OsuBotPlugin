@@ -43,7 +43,7 @@ async def _(bot: Bot, event: Event, state: T_State):
         VALUES ('{}', '{}', '{}')
         """.format(str(event.get_user_id()),osuid,url)
         er=MConn.execute(sql)
-        if er != '0':
+        if er == '0':
             await osubinding.send("绑定信息记录成功\n"+url)
         else:
             await osubinding.send("绑定信息记录失败\n"+str(e))
@@ -63,7 +63,7 @@ osuunbind = on_command('osuunbind')
 async def _(bot: Bot, event: Event, state: T_State):
     sql = 'DELETE FROM `osusql`.`binding` WHERE `binding`.`QQid` = {}'.format(str(event.get_user_id()))
     er=MConn.execute(sql)
-    if er != '0':
+    if er == '0':
         await osuunbind.send("绑定信息删除成功")
     else:
         await osuunbind.send("绑定信息删除失败\n"+str(e))
@@ -79,9 +79,14 @@ async def _(bot: Bot, event: Event, state: T_State):
     """.format(QQid)
     inf=MConn.executeselect(sql)
     if inf[-1]=='0':
-        await osuava.finish("难道是服务器寄了吗~\n"+str(inf))
+        await osuava.send("难道是服务器寄了吗~\n"+str(inf))
     else:
         osuidnumber=inf[0].split('/')[-1]
         avaurl='https://a.ppy.sh/{0}?{0}.jpeg'.format(osuidnumber)
-        message = Message([ MessageSegment(type='image', data={'url':avaurl})])
-        await osuava.finish(message)
+        message = Message([{
+            "type": "image",
+            "data": {
+                "file": avaurl
+            }
+        }])
+        await osuava.send(message)
