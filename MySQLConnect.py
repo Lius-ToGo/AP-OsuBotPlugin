@@ -59,6 +59,6 @@ class MySQLConnect:
             return row
         except Exception as e:
             conn.rollback()
-            e+="命令执行失败 0"
+            e=str(e)+"命令执行失败 0"
             conn.close()
             return e
